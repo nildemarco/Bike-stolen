@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logoPolice.png';
 import './App.css';
+import Nav from './components/Nav';
 
 const App = () => {
 
@@ -21,7 +21,7 @@ const App = () => {
 
   const crearFecha = (date) => {
     if (bikes) {
-      let dateBike = new Date(date)
+      let dateBike = new Date(date*1000)
       return dateBike.toDateString()
     }
   }
@@ -29,12 +29,12 @@ const App = () => {
   const crearUrl = () => {
     let url = new URL(`https://bikewise.org:443/api/v2/incidents`)
     url.search = new URLSearchParams({
+      per_page: 50,
       query: busqueda.searchText,
       occurred_before: busqueda.dateTo,
       occurred_after: busqueda.dateFrom,
       incident_type: 'theft'
     })
-    console.log(url)
     return url
   }
 
@@ -43,7 +43,7 @@ const App = () => {
     setBusqueda({ ...busqueda, [e.target.name]: e.target.value })
     }
     else {
-      setBusqueda({ ...busqueda, [e.target.name]: Date.parse(e.target.value)})
+      setBusqueda({ ...busqueda, [e.target.name]: Date.parse(e.target.value)/1000})
     }
   }
 
@@ -53,18 +53,13 @@ const App = () => {
     fetch(crearUrl())
     .then(res => res.json())
     .then(data => setBike(data))
+
   }
   console.log(bikes)
   console.log(busqueda)
   return (
-    <div>
-      <nav>
-        <img className="img-nav" alt="Logo police" src={logo} />
-        <div>
-          <h1>Police Departament of Berlin</h1>
-          <h5>Stolen Bikes</h5>
-        </div>
-      </nav>
+    <div className='main'>
+      <Nav/>
       <form onSubmit={handleSubmit}>
         <input type='text' name='searchText' value={busqueda.searchText} placeholder="Search case descriptions" onChange={handleChange} />
         <input type='date' name='dateFrom' vale={busqueda.dateFrom} placeholder="From" onChange={handleChange} />
@@ -75,7 +70,7 @@ const App = () => {
         {bikes ? <h6>Cases: {bikes.incidents.length}</h6> : ''}
       </div>
       <div className="container-card">
-        {bikes &&
+        {bikes?
           <>
             {
               bikes.incidents.map(bike => {
@@ -96,8 +91,8 @@ const App = () => {
                 )
               })
             }
-          </>
-
+          </> :
+          <div>Loading...</div>
         }
       </div>
     </div>
