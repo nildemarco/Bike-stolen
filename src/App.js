@@ -37,10 +37,11 @@ const App = () => {
     url.search = new URLSearchParams({
       per_page: 10,
       query: busqueda.searchText,
-      occurred_before: busqueda.dateTo,
-      occurred_after: busqueda.dateFrom,
+      occurred_before: Date.parse(busqueda.dateTo)/ 1000,
+      occurred_after: Date.parse(busqueda.dateFrom)/1000,
       incident_type: 'theft'
     })
+    console.log(url)
     return url
   }
   
@@ -54,7 +55,8 @@ const App = () => {
       setBusqueda({ ...busqueda, [e.target.name]: e.target.value })
     }
     else {
-      setBusqueda({ ...busqueda, [e.target.name]: Date.parse(e.target.value) / 1000 })
+      console.log(e.target.value)
+      setBusqueda({ ...busqueda, [e.target.name]: (e.target.value) })
     }
   }
 
@@ -98,13 +100,13 @@ const App = () => {
        break;
    }
   }; 
-
+  console.log(busqueda)
   return (
     <div className='main'>
       <Nav />
       <form onSubmit={handleSubmit}>
         <input type='text' name='searchText' className="input-text" value={busqueda.searchText} placeholder="Search case descriptions" onChange={handleChange} />
-        <input type='date' name='dateFrom' vale={busqueda.dateFrom} placeholder="From" onChange={handleChange} />
+        <input type='date' name='dateFrom' value={busqueda.dateFrom} placeholder="From" onChange={handleChange} />
         <input type='date' name='dateTo' value={busqueda.dateTo} placeholder="To" onChange={handleChange} />
         <input type='submit' className="input-submit"  value='Find case' />
       </form>

@@ -12,7 +12,7 @@ const CardDetails = ({bike, funcioncrearFecha, handleClick}) =>{
     </div>
     <div className="container-details">
       <h4>{bike.bike.title}</h4>
-      <p>aqui va el mapa</p>
+      <p></p>
       <p className='description'>{bike.bike.description}</p>
       <p>{funcioncrearFecha(bike.bike.occurred_at)} - {bike.bike.address}</p>
     </div>
