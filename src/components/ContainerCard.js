@@ -1,14 +1,15 @@
 import React from 'react';
 
-const ContainerCard = ({bikes, funcioncrearFecha, handleClick}) => {
-    return (
-        <div className="container-card">
-        {bikes ?
-          <>
-            {
-              bikes.incidents.map(bike => {
+const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick }) => {
+  return (
+    <>
+      {bikes ?
+        <>
+          {
+            bikes.incidents.map((bike, i) => {
+              if (((page*10) -10) <= i && i < (page*10)) {
                 return (
-                  <div className='card'  key={bike.id} onClick={(e) => handleClick(e, bike)}>
+                  <div className='card' key={bike.id} onClick={(e) => handleClick(e, bike)}>
                     <div className='container-img'>
                       {bike.media.image_url ?
                         <img alt={bike.title} src={bike.media.image_url} /> :
@@ -21,15 +22,17 @@ const ContainerCard = ({bikes, funcioncrearFecha, handleClick}) => {
                       <p>{funcioncrearFecha(bike.occurred_at)} - {bike.address}</p>
                     </div>
                   </div>
-               
-                )
-              })
-            }
-          </> :
-           <span>Loading...</span>
-        }
-      </div>
 
-    );
+                )
+              }
+            })
+
+          }
+        </> :
+        <span>Loading...</span>
+      }
+    </>
+
+  );
 }
 export default ContainerCard;

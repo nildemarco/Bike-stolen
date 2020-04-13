@@ -3,8 +3,7 @@ import './App.css';
 import Nav from './components/Nav';
 import Button from './components/Button';
 import ContainerCard from './components/ContainerCard';
-import ContainerCardDetails from './pages/ContainerCardDetails';
-import CardDetails from './pages/CardDetails';
+import CardDetails from './components/CardDetails';
 
 const App = () => {
 
@@ -16,9 +15,10 @@ const App = () => {
   });
   const [cardSelect, setCardSelect] = useState(false)
   const [bikeSelect, setBikeSelect] = useState({})
+  const [pageButton, setPageButton] = useState(1)
 
   const buscarBikes = () => {
-    fetch(`https://bikewise.org/api/v2/incidents?page=1&per_page=50&incident_type=theft&proximity_square=100`)
+    fetch(`https://bikewise.org/api/v2/incidents?page=1&per_page=100&incident_type=theft&proximity_square=100`)
       .then(res => res.json())
       .then(data => setBike(data))
   }
@@ -66,32 +66,77 @@ const App = () => {
       .then(data => setBike(data))
 
   }
-  console.log(bikes)
-  console.log(busqueda)
+  const handleClickButtons = (info) => {
+   switch (info) {
+     case ('<< First'):
+        setPageButton(1)
+       break;
+     case ('Prev'):
+       if (pageButton > 1) {
+        setPageButton(pageButton - 1)
+        }
+       break;
+     case ('1'):
+       setPageButton(1)
+       break;
+     case ('2'):
+       setPageButton(2)
+       break;
+     case('3'):
+        setPageButton(3)
+       break;
+     case ('Next >>'):
+        if(pageButton < 10){
+        setPageButton(pageButton + 1)
+       } 
+       break;
+     case ('Last'):
+        setPageButton(10)
+       break;
+     default:
+       setPageButton(1)
+       break;
+   }
+  }; 
+
   return (
     <div className='main'>
       <Nav />
       <form onSubmit={handleSubmit}>
-        <input type='text' name='searchText' value={busqueda.searchText} placeholder="Search case descriptions" onChange={handleChange} />
+        <input type='text' name='searchText' className="input-text" value={busqueda.searchText} placeholder="Search case descriptions" onChange={handleChange} />
         <input type='date' name='dateFrom' vale={busqueda.dateFrom} placeholder="From" onChange={handleChange} />
         <input type='date' name='dateTo' value={busqueda.dateTo} placeholder="To" onChange={handleChange} />
-        <input type='submit' value='Find case' />
+        <input type='submit' className="input-submit"  value='Find case' />
       </form>
       <div className="container-cases-number">
-        {bikes ? <h6>Cases: {bikes.incidents.length}</h6> : ''}
+       { bikes ? <h6>Cases: {bikes.incidents.length}</h6> : ''}
       </div>
+      <div className="container-card">
       { cardSelect? 
       <CardDetails bike={bikeSelect} funcioncrearFecha={crearFecha} handleClick={handleClick}/> :
-      <ContainerCard bikes={bikes} funcioncrearFecha={crearFecha} handleClick={handleClick}/> 
+      <ContainerCard bikes={bikes} page={pageButton} funcioncrearFecha={crearFecha} handleClick={handleClick}/> 
       }
+      </div>
       <div className='container-button-pages'>
-        <Button info='<< First'/>
-        <Button info='Prev'/>
-        <Button info='1'/>
-        <Button info='2'/>
-        <Button info='3'/>
-        <Button info='Next >>'/>
-        <Button info='Last'/>
+        
+        {pageButton == 1 ?
+         '' :
+         <>
+        <Button info='<< First' handleClickButtons = {handleClickButtons}/>
+        <Button info='Prev'handleClickButtons = {handleClickButtons}/>
+        </> 
+        }
+        
+        <Button info='1'handleClickButtons = {handleClickButtons}/>
+        <Button info='2'handleClickButtons = {handleClickButtons}/>
+        <Button info='3'handleClickButtons = {handleClickButtons}/>
+        { pageButton == 10? 
+         '' :
+         <>
+        <Button info='Next >>'handleClickButtons = {handleClickButtons}/>
+        <Button info='Last'handleClickButtons = {handleClickButtons}/>
+        </>
+        } 
         </div>
     </div>
   );

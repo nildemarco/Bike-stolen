@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Button = ({info}) => {
+const Button = ({info, handleClickButtons}) => {
     return (
-        <button>{info}</button>
+        <button onClick={() =>handleClickButtons(info)}>{info}</button>
     )
 }
 export default Button;
