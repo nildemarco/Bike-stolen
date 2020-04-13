@@ -35,7 +35,7 @@ const App = () => {
   const crearUrl = () => {
     let url = new URL(`https://bikewise.org:443/api/v2/incidents`)
     url.search = new URLSearchParams({
-      per_page: 10,
+      per_page: 100,
       query: busqueda.searchText,
       occurred_before: Date.parse(busqueda.dateTo)/ 1000,
       occurred_after: Date.parse(busqueda.dateFrom)/1000,
