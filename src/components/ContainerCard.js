@@ -1,8 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import CardDetails from '../pages/CardDetails'
 
-const ContainerCard = ({bikes, funcioncrearFecha}) => {
+const ContainerCard = ({bikes, funcioncrearFecha, handleClick}) => {
     return (
         <div className="container-card">
         {bikes ?
@@ -10,13 +8,11 @@ const ContainerCard = ({bikes, funcioncrearFecha}) => {
             {
               bikes.incidents.map(bike => {
                 return (
-                  <Router>
-                    <Link to="/CardDetails">
-                  <div className='card' key={bike.id}>
+                  <div className='card'  key={bike.id} onClick={(e) => handleClick(e, bike)}>
                     <div className='container-img'>
                       {bike.media.image_url ?
                         <img alt={bike.title} src={bike.media.image_url} /> :
-                        <span>Imagen no disponible</span>
+                        <p>Imagen no disponible</p>
                       }
                     </div>
                     <div className="container-details">
@@ -25,18 +21,12 @@ const ContainerCard = ({bikes, funcioncrearFecha}) => {
                       <p>{funcioncrearFecha(bike.occurred_at)} - {bike.address}</p>
                     </div>
                   </div>
-                  </Link>
-                  <Switch>
-                    <Route path='/CardDetails'>
-                      <CardDetails bike={bike} funcioncrearFecha={funcioncrearFecha}/>
-                    </Route>
-                  </Switch>
-                  </Router>
+               
                 )
               })
             }
           </> :
-          <div>Loading...</div>
+           <span>Loading...</span>
         }
       </div>
 

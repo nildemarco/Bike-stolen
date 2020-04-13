@@ -122,6 +122,9 @@ a {
   display: flex;
   justify-content: center;
   text-decoration: none;
+}
 
+span {
+  color: #ffff;
 }
 

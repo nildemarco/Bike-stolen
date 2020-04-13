@@ -3,6 +3,8 @@ import './App.css';
 import Nav from './components/Nav';
 import Button from './components/Button';
 import ContainerCard from './components/ContainerCard';
+import ContainerCardDetails from './pages/ContainerCardDetails';
+import CardDetails from './pages/CardDetails';
 
 const App = () => {
 
@@ -11,7 +13,9 @@ const App = () => {
     searchText: '',
     dateFrom: '',
     dateTo: '',
-  })
+  });
+  const [cardSelect, setCardSelect] = useState(false)
+  const [bikeSelect, setBikeSelect] = useState({})
 
   const buscarBikes = () => {
     fetch(`https://bikewise.org/api/v2/incidents?page=1&per_page=50&incident_type=theft&proximity_square=100`)
@@ -39,7 +43,12 @@ const App = () => {
     })
     return url
   }
-
+  
+  const handleClick = (e, bike) => {
+    setCardSelect(!cardSelect)
+    setBikeSelect({bike})
+  };
+  
   const handleChange = e => {
     if (e.target.name === 'searchText') {
       setBusqueda({ ...busqueda, [e.target.name]: e.target.value })
@@ -71,7 +80,10 @@ const App = () => {
       <div className="container-cases-number">
         {bikes ? <h6>Cases: {bikes.incidents.length}</h6> : ''}
       </div>
-      <ContainerCard bikes={bikes} funcioncrearFecha={crearFecha}/>
+      { cardSelect? 
+      <CardDetails bike={bikeSelect} funcioncrearFecha={crearFecha} handleClick={handleClick}/> :
+      <ContainerCard bikes={bikes} funcioncrearFecha={crearFecha} handleClick={handleClick}/> 
+      }
       <div className='container-button-pages'>
         <Button info='<< First'/>
         <Button info='Prev'/>
