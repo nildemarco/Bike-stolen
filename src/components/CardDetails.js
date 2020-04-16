@@ -1,20 +1,22 @@
 import React from 'react';
+import MapContainer from './MapContainer'
 
-const CardDetails = ({bike, funcioncrearFecha, handleClick}) =>{
-    
+const CardDetails = ({bike, funcioncrearFecha, handleClick, bikelocation}) =>{
     return (
-    <div className='card' key={bike.bike.id} onClick={(e)=>handleClick(e,bike)}>
+    <div className='card' key={bike.id} onClick={(e)=>handleClick(e,bike)}>
     <div className='container-img'>
-      {bike.bike.media.image_url ?
-        <img alt={bike.bike.title} src={bike.bike.media.image_url} /> :
+      {bike.media.image_url ?
+        <img alt={bike.title} src={bike.media.image_url} /> :
         <p>Imagen no disponible</p>
       }
     </div>
     <div className="container-details">
-      <h4>{bike.bike.title}</h4>
-      <p></p>
-      <p className='description'>{bike.bike.description}</p>
-      <p>{funcioncrearFecha(bike.bike.occurred_at)} - {bike.bike.address}</p>
+      <h4>{bike.title}</h4>
+      <div className='container-map'>
+      <MapContainer bikelocation={bikelocation}/>      
+      </div>
+      <p className='description'>{bike.description}</p>
+      <p>{funcioncrearFecha(bike.occurred_at)} - {bike.address}</p>
     </div>
   </div>
   );

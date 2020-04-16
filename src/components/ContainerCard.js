@@ -6,7 +6,7 @@ const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick }) => {
       {bikes ?
         <>
           {
-            bikes.incidents.map((bike, i) => {
+            bikes.map((bike, i) => {
               if (((page*10) -10) <= i && i < (page*10)) {
                 return (
                   <div className='card' key={bike.id} onClick={(e) => handleClick(e, bike)}>
