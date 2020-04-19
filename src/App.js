@@ -49,7 +49,6 @@ const App = () => {
       occurred_after: Date.parse(busqueda.dateFrom) / 1000 || '',
       incident_type: 'theft'
     })
-    console.log(url)
     return url
   }
   const crearQuery = (str) => str.split(" ").join('%20');
@@ -73,7 +72,6 @@ const App = () => {
       setBusqueda({ ...busqueda, [e.target.name]: e.target.value });
     }
     else {
-      console.log(e.target.value)
       setBusqueda({ ...busqueda, [e.target.name]: (e.target.value) });
     }
   }
@@ -90,16 +88,6 @@ const App = () => {
       .catch(err => setError(true));
 
   }
-
-  // const botones = {
-  //   "<< First": setPageButton(1),
-  //   'Prev': setPageButton(pageButton - 1),
-  //   '1': setPageButton(1),
-  //   '2': setPageButton(2),
-  //   '3': setPageButton(3),
-  //   'Next >>': setPageButton(pageButton + 1),
-  //   'Last': setPageButton(10),
-  // }
 
   const handleClickButtons = (info) => {
     switch (info) {
@@ -133,7 +121,6 @@ const App = () => {
         break;
     }
   };
-  console.log(isSearching)
   return (
     <div className='main'>
       <Nav />

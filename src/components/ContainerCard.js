@@ -24,6 +24,9 @@ const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick, isSearchin
                   </div>
                 )
               }
+              else {
+                return null
+              }
             }) :
             <div className="message-error">We couldn't find any results</div>
           }
@@ -31,7 +34,6 @@ const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick, isSearchin
         <span>{isSearching? "Searching...": "Loading..."}</span>   
       }
     </>
-
   );
 }
 export default ContainerCard;
