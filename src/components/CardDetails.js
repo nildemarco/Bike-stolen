@@ -7,7 +7,7 @@ const CardDetails = ({bike, funcioncrearFecha, handleClick, bikelocation}) =>{
     <div className='container-img'>
       {bike.media.image_url ?
         <img alt={bike.title} src={bike.media.image_url} /> :
-        <p>Imagen no disponible</p>
+        <p>Image not available</p>
       }
     </div>
     <div className="container-details">
