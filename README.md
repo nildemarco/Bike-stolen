@@ -8,6 +8,8 @@ https://bike-stolen.now.sh
 
 I used React, Hooks, Google Maps React library and Google Maps Api during the development. Also I used CSS for the style
 
+---
+
 Este proyecto fue realizado siguiendo como guia el desafio propuesto en: 
 
 # Desafio
