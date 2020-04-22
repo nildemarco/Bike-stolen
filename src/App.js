@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav';
+import Form from './components/Form';
+import CounterCase from './components/CounterCase';
 import Button from './components/Button';
 import ContainerCard from './components/ContainerCard';
 import CardDetails from './components/CardDetails';
-
 
 const App = () => {
 
@@ -51,8 +52,8 @@ const App = () => {
     })
     return url
   }
+  
   const crearQuery = (str) => str.split(" ").join('%20');
-
 
   const handleClick = (e, bike) => {
     setCardSelect(!cardSelect);
@@ -124,15 +125,8 @@ const App = () => {
   return (
     <div className='main'>
       <Nav />
-      <form onSubmit={handleSubmit}>
-        <input type='text' name='searchText' className="input-text" value={busqueda.searchText} placeholder="Search case descriptions" onChange={handleChange} />
-        <input type='date' name='dateFrom' value={busqueda.dateFrom} placeholder="From" onChange={handleChange} />
-        <input type='date' name='dateTo' value={busqueda.dateTo} placeholder="To" onChange={handleChange} />
-        <input type='submit' className="input-submit" value='Find case' />
-      </form>
-      <div className="container-cases-number">
-        {bikes && <h6>Cases: {bikes.length}</h6>}
-      </div>
+      <Form handleSubmit={handleSubmit} handleChange={handleChange} busqueda={busqueda} />
+      <CounterCase bikes={bikes} />
       {error ?
         <div className="message-error">Ooops, somethings wen't wrong</div> :
         <div className="container-card">
