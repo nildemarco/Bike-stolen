@@ -2,12 +2,12 @@ import React from 'react';
 
 const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick, isSearching }) => {
   return (
-    <>  
-      { bikes && !isSearching?
+    <>
+      {bikes && !isSearching ?
         <>
-          { bikes.length ? 
+          {bikes.length ?
             bikes.map((bike, i) => {
-              if (((page*10) -10) <= i && i < (page*10)) {
+              if (((page * 10) - 10) <= i && i < (page * 10)) {
                 return (
                   <div className='card' key={bike.id} onClick={(e) => handleClick(e, bike)}>
                     <div className='container-img'>
@@ -31,7 +31,7 @@ const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick, isSearchin
             <div className="message-error">We couldn't find any results</div>
           }
         </> :
-        <span>{isSearching? "Searching...": "Loading..."}</span>   
+        <span>{isSearching ? "Searching..." : "Loading..."}</span>
       }
     </>
   );

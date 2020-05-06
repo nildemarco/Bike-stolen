@@ -12,7 +12,7 @@ const containerStyle = {
     width: '60%',
     height: '50%',
     margin: '4px',
-}
+};
 
 const MapContainer = (props) => {
     

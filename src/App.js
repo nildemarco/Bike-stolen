@@ -30,7 +30,7 @@ const App = () => {
         setIsSearching(false)
       })
       .catch(err => setError(true));
-  }
+  };
 
   useEffect(buscarBikes, [])
 
@@ -39,7 +39,7 @@ const App = () => {
       let dateBike = new Date(date * 1000);
       return dateBike.toDateString()
     }
-  }
+  };
 
   const crearUrl = () => {
     let url = new URL(`https://bikewise.org:443/api/v2/incidents`)
@@ -51,8 +51,8 @@ const App = () => {
       incident_type: 'theft'
     })
     return url
-  }
-  
+  };
+
   const crearQuery = (str) => str.split(" ").join('%20');
 
   const handleClick = (e, bike) => {
@@ -75,7 +75,7 @@ const App = () => {
     else {
       setBusqueda({ ...busqueda, [e.target.name]: (e.target.value) });
     }
-  }
+  };
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -88,7 +88,7 @@ const App = () => {
       })
       .catch(err => setError(true));
 
-  }
+  };
 
   const handleClickButtons = (info) => {
     switch (info) {
