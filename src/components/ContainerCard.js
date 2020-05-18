@@ -31,7 +31,7 @@ const ContainerCard = ({ bikes, page, funcioncrearFecha, handleClick, isSearchin
             <div className="message-error">We couldn't find any results</div>
           }
         </> :
-        <span>{isSearching ? "Searching..." : "Loading..."}</span>
+        <div className="message-container">{isSearching ? "Searching..." : "Loading..."}</div>
       }
     </>
   );

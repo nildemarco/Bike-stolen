@@ -2,18 +2,48 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 
-const mapStyles = {
+let mapStyles = {
     position: 'inherit',
     width: '400px',
     height: '150px',
 };
-const containerStyle = {
+let containerStyle = {
     position: 'relative',
     width: '60%',
     height: '50%',
     margin: '4px',
 };
 
+if(window.innerWidth<430){
+    console.log('estoy estilando mapa')
+    mapStyles = {
+        position: 'inherit',
+        width: '300px',
+        height: '100px',
+    };
+    containerStyle = {
+        position: 'relative',
+        width: '40%',
+        height: '30%',
+        marginTop: '4px',
+        marginBoton: '5px'
+    };
+}
+if(window.innerWidth<321){
+    console.log('estoy estilando mapa')
+    mapStyles = {
+        position: 'inherit',
+        width: '230px',
+        height: '100px',
+    };
+    containerStyle = {
+        position: 'relative',
+        width: '40%',
+        height: '30%',
+        marginTop: '4px',
+        marginBoton: '5px'
+    };
+}
 const MapContainer = (props) => {
     
     return ( 
